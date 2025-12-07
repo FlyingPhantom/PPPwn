@@ -664,11 +664,11 @@ if ((buffer = malloc(PAYLOAD_SZ, M_TEMP, 0)) == NULL) {
 }
 
 // Check USB locations first
-fd = ksys_open(td, "/mnt/usb0/payload.bin", O_RDONLY, 0);
+fd = ksys_open(td, "/mnt/usb0/payload-linux.bin", O_RDONLY, 0);
 if (fd < 0) {
-    fd = ksys_open(td, "/mnt/usb1/payload.bin", O_RDONLY, 0);
+    fd = ksys_open(td, "/mnt/usb1/payload-linux.bin", O_RDONLY, 0);
     if (fd < 0) {
-        fd = ksys_open(td, "/mnt/usb2/payload.bin", O_RDONLY, 0);
+        fd = ksys_open(td, "/mnt/usb2/payload-linux.bin", O_RDONLY, 0);
     }
 }
 
@@ -677,7 +677,7 @@ if (fd >= 0) {
 
     int payload_size = ksys_read(td, fd, buffer, PAYLOAD_SZ);
     if (payload_size < 0) {
-        printf("Failed to read payload.bin from USB\n");
+        printf("Failed to read payload-linux.bin from USB\n");
         ksys_close(td, fd);
         return;
     }
@@ -687,10 +687,10 @@ if (fd >= 0) {
     // Open/create /data/HEN directory
     ksys_mkdir(td, "/data/HEN", 0755);
 
-    // Open /data/HEN/payload.bin for writing (overwrite)
-    fd = ksys_open(td, "/data/HEN/payload.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    // Open /data/HEN/payload-linux.bin for writing (overwrite)
+    fd = ksys_open(td, "/data/HEN/payload-linux.bin", O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0) {
-        printf("Failed to open /data/HEN/payload.bin for writing\n");
+        printf("Failed to open /data/HEN/payload-linux.bin for writing\n");
         return;
     }
 
